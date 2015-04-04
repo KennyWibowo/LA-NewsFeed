@@ -1,5 +1,6 @@
 package com.util;
 
+
 import java.util.ArrayList;
 
 public class NewsGetter{
@@ -18,6 +19,8 @@ public class NewsGetter{
 
    public ArrayList<Article> getNews()
    {
+
+       articles.clear();
       for(int i = 0;  i < link.links.size(); i++)
       {
          readerArticles = reader.reader(link.links.get(i));
@@ -29,9 +32,11 @@ public class NewsGetter{
          {
             articlesPerSource.add(i, readerArticles.size());
          }
+
          for(int j = 0; j<readerArticles.size(); j++)
          {
-            articles.add(readerArticles.get(j));
+                articles.add(readerArticles.get(j));
+            
          }
       }
       return articles;
@@ -39,6 +44,8 @@ public class NewsGetter{
    
    public ArrayList<Article> getNews(int number)
    {
+
+       articles.clear();
       for(int i = 0;  i < link.links.size(); i++)
       {
          readerArticles = reader.reader(link.links.get(i));
@@ -50,11 +57,13 @@ public class NewsGetter{
          {
             articlesPerSource.add(i, readerArticles.size());
          }
+
          for(int j = 0; j<number; j++)
          {
             if(j < readerArticles.size())
             {
                 articles.add(readerArticles.get(j));
+                
             }
          }
       }

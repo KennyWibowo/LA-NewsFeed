@@ -49,4 +49,17 @@ public class Article{
    {
        return source + " - " + title ;
    }
+
+   public boolean equals(Object o)
+   {
+       if(o instanceof Article)
+       {
+           Article art = (Article)o;
+           if(art.link == link)
+           {
+               return true;
+           }
+       }
+       return false;
+   }
 }
