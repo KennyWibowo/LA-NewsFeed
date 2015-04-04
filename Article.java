@@ -37,7 +37,7 @@ public class Article{
       return priority;
    }
 
-   public int setPriority(int p)
+   public void setPriority(int p)
    {
       priority = p;
    }
