@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class NewsGetter{
    public Links link;
-   public RSSReaderXML reader;
+   public RSSReader reader;
    public ArrayList<Article> articles;
    public ArrayList<Article> readerArticles;
    public ArrayList<Integer> articlesPerSource;
  
    public NewsGetter(){
       link = new Links();
-      reader = new RSSReaderXML();
+      reader = new RSSReader();
       articles = new ArrayList<Article>();
       articlesPerSource = new ArrayList<Integer>();
    }
@@ -20,7 +20,44 @@ public class NewsGetter{
    {
       for(int i = 0;  i < link.links.size(); i++)
       {
-
+         readerArticles = reader.reader(link.links.get(i));
+         if(i >= articlesPerSource.size())
+         {
+            articlesPerSource.add(readerArticles.size());
+         }
+         else
+         {
+            articlesPerSource.add(i, readerArticles.size());
+         }
+         for(int j = 0; j<readerArticles.size(); j++)
+         {
+            articles.add(readerArticles.get(j));
+         }
       }
+      return articles;
+   }
+   
+   public ArrayList<Article> getNews(int number)
+   {
+      for(int i = 0;  i < link.links.size(); i++)
+      {
+         readerArticles = reader.reader(link.links.get(i));
+         if(i >= articlesPerSource.size())
+         {
+            articlesPerSource.add(readerArticles.size());
+         }
+         else
+         {
+            articlesPerSource.add(i, readerArticles.size());
+         }
+         for(int j = 0; j<number; j++)
+         {
+            if(j < readerArticles.size())
+            {
+                articles.add(readerArticles.get(j));
+            }
+         }
+      }
+      return articles;
    }
 }

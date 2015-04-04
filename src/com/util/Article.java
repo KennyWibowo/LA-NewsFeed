@@ -45,4 +45,8 @@ public class Article{
    {
       priority = p;
    }
+   public String toString()
+   {
+       return source + " - " + title ;
+   }
 }
