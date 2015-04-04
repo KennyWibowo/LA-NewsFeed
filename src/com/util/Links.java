@@ -1,16 +1,18 @@
+package com.util;
+
 public class Links{
-   public static ArrayList<String> links;
+   public static ArrayList<typeLink> links;
 
    public Links()
    {
       if(links == null)
       {
-         links = new ArrayList<String>;
+         links = new ArrayList<typeLink>;
       }
    }
-   public addLink(String l)
+   public addLink(String l, String name)
    {
-      if(!links.contains(l))
+      if(!links.contains())
       {
          links.add(l);
       }

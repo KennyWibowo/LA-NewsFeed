@@ -1,22 +1,24 @@
 package com.util;
 
 public class Article{
-   public String title, description, link;
-   public int priority;
+   private String title, description, link, source;
+   private int priority;
 
-   public Article( String t, String d, String l, int p)
+   public Article( String t, String d, String l, String s, int p,)
    {
       title = t;
       description = d;
       link = l;
       priority = p;
+      source = s;
    }
 
-   public Article( String t, String d, String l)
+   public Article( String t, String d, String l, String s)
    {
       title = t;
       description = d;
       link = l;
+      source = s;
    }
 
    public String getTitle()
