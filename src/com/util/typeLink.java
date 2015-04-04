@@ -10,7 +10,7 @@ public class typeLink{
       sourceName = n;
    }
 
-   public equals(Object o)
+   public boolean equals(Object o)
    {
       if(o instanceof typeLink)
       {
@@ -19,9 +19,6 @@ public class typeLink{
             return true;
          }
       }
-      else
-      {
-         return false;
-      }
+      return false;
    }
 }
