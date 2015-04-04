@@ -12,16 +12,16 @@ public class Links{
    }
    public addLink(String l, String name)
    {
-      if(!links.contains())
+      if(!links.contains(new typeLink(i,name)))
       {
-         links.add(l);
+         links.add(new typeLink(i,name));
       }
    }
    public removeLink(String l);
    {
-      if(link.contains(l))
+      if(links.contains(new typeLink(i,name)))
       {
-         links.remove(l);
+         links.remove(new typeLink(i,name));
       }
    }
 }
