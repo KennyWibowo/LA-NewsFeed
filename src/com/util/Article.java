@@ -1,3 +1,5 @@
+package com.util;
+
 public class Article{
    public String title, description, link;
    public int priority;

@@ -1,3 +1,5 @@
+package com.util;
+
 public class NewsGetter{
-   public static ArrayList<String> link = 
+   public Links link;
 }
