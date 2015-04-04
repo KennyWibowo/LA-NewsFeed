@@ -4,7 +4,7 @@ public class Article{
    private String title, description, link, source;
    private int priority;
 
-   public Article( String t, String d, String l, String s, int p,)
+   public Article( String t, String d, String l, String s, int p)
    {
       title = t;
       description = d;
