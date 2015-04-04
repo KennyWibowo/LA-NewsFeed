@@ -31,7 +31,7 @@ public final class R {
         public static final int drawer_shadow=0x7f020000;
         public static final int ic_drawer=0x7f020001;
         public static final int ic_launcher=0x7f020002;
-        public static final int la_newsfeed=0x7f020003;
+        public static final int la_news=0x7f020003;
     }
     public static final class id {
         public static final int action_example=0x7f080007;
