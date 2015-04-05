@@ -19,7 +19,9 @@ public class DerpyListener implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		WebView browser = (WebView) a.findViewById(R.id.webview);
+		browser.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		browser.loadUrl(new String( url ));
 	}
+	
 	
 }

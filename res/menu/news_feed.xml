@@ -3,9 +3,9 @@
     tools:context="com.app.la_newsfeed.NewsFeed" >
 
     <item
-        android:id="@+id/action_example"
+        android:id="@+id/refresh"
         android:showAsAction="withText|ifRoom"
-        android:title="@string/action_example"/>
+        android:title="@string/refresh"/>
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

@@ -2,74 +2,61 @@ package com.util;
 
 import java.util.ArrayList;
 
-public class NewsGetter{
-   public Links link;
-   public RSSReader reader;
-   public ArrayList<Article> articles;
-   public ArrayList<Article> readerArticles;
-   public ArrayList<Integer> articlesPerSource;
-   public ImportanceSetter importance;
- 
-   public NewsGetter(){
-      link = new Links();
-      reader = new RSSReader();
-      articles = new ArrayList<Article>();
-      articlesPerSource = new ArrayList<Integer>();
-      importance = new ImportanceSetter();
-   }
+public class NewsGetter {
+	public Links link;
+	public RSSReader reader;
+	public ArrayList<Article> articles;
+	public ArrayList<Article> readerArticles;
+	public ArrayList<Integer> articlesPerSource;
+	public ImportanceSetter importance;
 
-   public ArrayList<Article> getNews()
-   {
+	public NewsGetter() {
+		link = new Links();
+		reader = new RSSReader();
+		articles = new ArrayList<Article>();
+		articlesPerSource = new ArrayList<Integer>();
+		importance = new ImportanceSetter();
+	}
 
-       articles.clear();
-      for(int i = 0;  i < link.links.size(); i++)
-      {
-         readerArticles = reader.reader(link.links.get(i));
-         if(i >= articlesPerSource.size())
-         {
-            articlesPerSource.add(readerArticles.size());
-         }
-         else
-         {
-            articlesPerSource.add(i, readerArticles.size());
-         }
+	public ArrayList<Article> getNews() {
 
-         for(int j = 0; j<readerArticles.size(); j++)
-         {
-                articles.add(readerArticles.get(j));
-            
-         }
-      }
-      importance.setImportance(articles);
-      return articles;
-   }
-   
-   public ArrayList<Article> getNews(int number)
-   {
+		articles.clear();
+		for (int i = 0; i < link.links.size(); i++) {
+			readerArticles = reader.reader(link.links.get(i));
+			if (i >= articlesPerSource.size()) {
+				articlesPerSource.add(readerArticles.size());
+			} else {
+				articlesPerSource.add(i, readerArticles.size());
+			}
 
-       articles.clear();
-      for(int i = 0;  i < link.links.size(); i++)
-      {
-         readerArticles = reader.reader(link.links.get(i));
-         if(i >= articlesPerSource.size())
-         {
-            articlesPerSource.add(readerArticles.size());
-         }
-         else
-         {
-            articlesPerSource.add(i, readerArticles.size());
-         }
+			for (int j = 0; j < readerArticles.size(); j++) {
+				articles.add(readerArticles.get(j));
 
-         for(int j = 0; j<number; j++)
-         {
-            if(j < readerArticles.size())
-            {
-                articles.add(readerArticles.get(j));
-                
-            }
-         }
-      }
-      importance.setImportance(articles);
-      return articles;
-   }
+			}
+		}
+		//importance.setImportance(articles);
+		return articles;
+	}
+
+	public ArrayList<Article> getNews(int number) {
+
+		articles.clear();
+		for (int i = 0; i < link.links.size(); i++) {
+			readerArticles = reader.reader(link.links.get(i));
+			if (i >= articlesPerSource.size()) {
+				articlesPerSource.add(readerArticles.size());
+			} else {
+				articlesPerSource.add(i, readerArticles.size());
+			}
+
+			for (int j = 0; j < number; j++) {
+				if (j < readerArticles.size()) {
+					articles.add(readerArticles.get(j));
+
+				}
+			}
+		}
+		//importance.setImportance(articles);
+		return articles;
+	}
 }

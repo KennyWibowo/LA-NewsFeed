@@ -10,6 +10,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -21,7 +22,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.support.v4.widget.DrawerLayout;
-import android.webkit.WebView;
+//import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,11 +38,12 @@ public class NewsFeed extends Activity implements
 	 */
 	private NavigationDrawerFragment mNavigationDrawerFragment;
 	private NewsGetter newsGetter = new NewsGetter();
+	private ImportanceSetter importance = new ImportanceSetter();
 	private Links link = new Links();
 	private RSSReader reader = new RSSReader();
 	private ArrayList<Article> derpy;
 	private String url;
-	
+
 	/**
 	 * Used to store the last screen title. For use in
 	 * {@link #restoreActionBar()}.
@@ -51,6 +53,7 @@ public class NewsFeed extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		link.addLink("http://rss.cnn.com/rss/cnn_topstories.rss", "CNN");
+		link.addLink("http://feeds.bbci.co.uk/news/rss.xml", "BBC");
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news_feed);
@@ -69,32 +72,40 @@ public class NewsFeed extends Activity implements
 		new Thread(new Runnable() {
 
 			public synchronized void run() {
-				derpy = reader.reader(new typeLink("http://rss.cnn.com/rss/cnn_topstories.rss", "CNN"));
+				derpy = newsGetter.getNews(5);// reader.reader(new
+												// typeLink("http://rss.cnn.com/rss/cnn_topstories.rss",
+												// "CNN"));
 			}
-			  
+
 		}).start();
-		
+
 		try {
-			new Thread().sleep(1000);
+			new Thread().sleep(2500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		importance.setImportance(derpy);
+
 		for (int i = 0; i < derpy.size(); i++) {
+
+			int redVal = derpy.get(i).getPriority();
+			int hexVal = (int) (255 * Math.pow(16, 4) + (255 - redVal)
+					* Math.pow(16, 2));
+
 			Button b1 = new Button(this);
 			b1.setText(derpy.get(i).getTitle());
 			b1.setTextSize(10);
-			//b1.setPreferredSize();
+
+			b1.getBackground().setColorFilter(hexVal, PorterDuff.Mode.MULTIPLY); // 255-redVal
 			b1.setGravity(Gravity.CENTER);
-		    url = derpy.get(i).getLink();
-			b1.setOnClickListener( new DerpyListener(this, url) );
+			url = derpy.get(i).getLink();
+			b1.setOnClickListener(new DerpyListener(this, url));
 			myLinearLayout.addView(b1);
 		}
 
 	}
-	
-	
 
 	/*
 	 * @Override protected void onStart() { System.out.println("Hello");
@@ -114,13 +125,13 @@ public class NewsFeed extends Activity implements
 	public void onSectionAttached(int number) {
 		switch (number) {
 		case 1:
-			mTitle = getString(R.string.title_section1);
+			mTitle = "Ibis";// getString(R.string.title_section1);
 			break;
 		case 2:
-			mTitle = getString(R.string.title_section2);
+			mTitle = "CNN"; // getString(R.string.title_section2);
 			break;
 		case 3:
-			mTitle = getString(R.string.title_section3);
+			mTitle = "Options";// getString(R.string.title_section3);
 			break;
 		}
 	}
@@ -151,7 +162,45 @@ public class NewsFeed extends Activity implements
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+
+		if (id == R.id.refresh) {
+			LinearLayout myLinearLayout = (LinearLayout) findViewById(R.id.layout);
+			new Thread(new Runnable() {
+
+				public synchronized void run() {
+					derpy = newsGetter.getNews(5);// reader.reader(new
+													// typeLink("http://rss.cnn.com/rss/cnn_topstories.rss",
+													// "CNN"));
+				}
+
+			}).start();
+
+			try {
+				new Thread().sleep(2500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			importance.setImportance(derpy);
+
+			for (int i = 0; i < derpy.size(); i++) {
+
+				int redVal = derpy.get(i).getPriority();
+				int hexVal = (int) (255 * Math.pow(16, 4) + (255 - redVal)
+						* Math.pow(16, 2));
+
+				Button b1 = new Button(this);
+				b1.setText(derpy.get(i).getTitle());
+				b1.setTextSize(10);
+
+				b1.getBackground().setColorFilter(hexVal,
+						PorterDuff.Mode.MULTIPLY); // 255-redVal
+				b1.setGravity(Gravity.CENTER);
+				url = derpy.get(i).getLink();
+				b1.setOnClickListener(new DerpyListener(this, url));
+				myLinearLayout.addView(b1);
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -198,5 +247,3 @@ public class NewsFeed extends Activity implements
 	}
 
 }
-
-
