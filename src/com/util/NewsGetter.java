@@ -34,7 +34,7 @@ public class NewsGetter {
 
 			}
 		}
-		//importance.setImportance(articles);
+		importance.setImportance(articles);
 		return articles;
 	}
 
