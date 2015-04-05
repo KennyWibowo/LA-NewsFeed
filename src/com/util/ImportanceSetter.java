@@ -35,8 +35,9 @@ public class ImportanceSetter {
 		aq.doQuery();
 		
 		AzureSearchResultSet<AbstractAzureSearchResult> ars = aq.getQueryResult();
-
-		return (int)ars.getWebTotal();
+		
+		long store = ars.getWebTotal();
+		return (int) store;
 			
 	}
 }
