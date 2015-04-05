@@ -87,14 +87,9 @@ public class NewsFeed extends Activity implements
 			b1.setTextSize(10);
 			//b1.setPreferredSize();
 			b1.setGravity(Gravity.CENTER);
-			myLinearLayout.addView(b1);
 		    url = derpy.get(i).getLink();
-			b1.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					WebView browser = (WebView) findViewById(R.id.webview);
-					browser.loadUrl(url);
-				}
-			});
+			b1.setOnClickListener( new DerpyListener(this, url) );
+			myLinearLayout.addView(b1);
 		}
 
 	}
@@ -203,3 +198,5 @@ public class NewsFeed extends Activity implements
 	}
 
 }
+
+
