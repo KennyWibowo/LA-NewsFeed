@@ -1,11 +1,11 @@
 package com.app.la_newsfeed;
 
 import android.app.Activity;
-
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -14,13 +14,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 public class NewsFeed extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+ 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
@@ -35,17 +40,36 @@ public class NewsFeed extends Activity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+        
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news_feed);
-
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
-
+		
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+		
+		LinearLayout myLinearLayout = (LinearLayout) findViewById(R.id.layout);
+		String[] derp = {"FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH", "SEVENTH", "EIGHTH"};
+		
+		for(int i = 0; i < derp.length; i++){
+			TextView tv1 = new TextView(this);
+			tv1.setTextSize(60);
+			tv1.setGravity(Gravity.CENTER);
+			tv1.setText(derp[i]);
+			myLinearLayout.addView(tv1);
+		}
+		
 	}
+	/*
+	@Override
+	protected void onStart() {
+		System.out.println("Hello");
+	    super.onStart();
+	    // show dialog here
+	}*/
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
@@ -142,5 +166,6 @@ public class NewsFeed extends Activity implements
 					ARG_SECTION_NUMBER));
 		}
 	}
+		
 
 }
