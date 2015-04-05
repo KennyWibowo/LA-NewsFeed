@@ -11,29 +11,21 @@ import net.billylieurance.azuresearch.AzureSearchResultSet;
 public class ImportanceSetter {
 
 	private final String API_KEY = "B1rIpd+rFK8Rd3St15JWSGF7Kbq8vhlE5u20z1Iu7SQ";
-	private final int UPPER_LIMIT = 550000;
+	private final int UPPER_LIMIT = 1500000;
+          public ImportanceSetter()
+          {
+
+          }
 	
-	public ImportanceSetter() {
+	public  void setImportance(ArrayList<Article> a) {
+            for(int i = 0;  i < a.size(); i++)
+            {
+               a.get(i).setPriority(searchImportance(a.get(i).getTitle()));
+            }
 
 	}
-/*	
-	public static int ImportanceGenerator( Article ar ){
-		StringTokenizer st = new StringTokenizer( ar.getTitle(), "!.?,;'\"/* " );
-		int importance = 0;
-		
-		ArrayList<String> keywords = new ArrayList<String>();
-		
-		
-		while( st.hasMoreTokens()) {
-			String word = st.nextToken();
-			
-			if(keywords.contains())z
-		}
-			
-		return importance; [
-	}*/
 	
-	private long searchImportance(String sentence) {
+	private int searchImportance(String sentence) {
 		
 		AzureSearchCompositeQuery  aq = new AzureSearchCompositeQuery();
 
@@ -44,7 +36,7 @@ public class ImportanceSetter {
 		
 		AzureSearchResultSet<AbstractAzureSearchResult> ars = aq.getQueryResult();
 
-		return ars.getWebTotal();
+		return (int)ars.getWebTotal();
 			
 	}
 }

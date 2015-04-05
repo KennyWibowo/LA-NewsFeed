@@ -8,12 +8,14 @@ public class NewsGetter{
    public ArrayList<Article> articles;
    public ArrayList<Article> readerArticles;
    public ArrayList<Integer> articlesPerSource;
+   public ImportanceSetter importance;
  
    public NewsGetter(){
       link = new Links();
       reader = new RSSReader();
       articles = new ArrayList<Article>();
       articlesPerSource = new ArrayList<Integer>();
+      importance = new ImportanceSetter();
    }
 
    public ArrayList<Article> getNews()
@@ -38,6 +40,7 @@ public class NewsGetter{
             
          }
       }
+      importance.setImportance(articles);
       return articles;
    }
    
@@ -66,6 +69,7 @@ public class NewsGetter{
             }
          }
       }
+      importance.setImportance(articles);
       return articles;
    }
 }
