@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -79,10 +80,13 @@ public class NewsFeed extends Activity implements
 		
 		for (int i = 0; i < derpy.size(); i++) {
 			TextView tv1 = new TextView(this);
+			Button b1 = new Button(this);
+			b1.setText("Click here for more information");
 			tv1.setTextSize(10);
 			tv1.setGravity(Gravity.CENTER);
 			tv1.setText(derpy.get(i).getTitle());
 			myLinearLayout.addView(tv1);
+			myLinearLayout.addView(b1);
 		}
 
 	}
