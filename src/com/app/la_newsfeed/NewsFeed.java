@@ -38,7 +38,7 @@ public class NewsFeed extends Activity implements
 	private Links link = new Links();
 	private RSSReader reader = new RSSReader();
 	private ArrayList<Article> derpy;
-
+	
 	/**
 	 * Used to store the last screen title. For use in
 	 * {@link #restoreActionBar()}.
@@ -66,19 +66,18 @@ public class NewsFeed extends Activity implements
 		new Thread(new Runnable() {
 
 			public synchronized void run() {
-				derpy = reader.reader(new typeLink(
-						"http://rss.cnn.com/rss/cnn_topstories.rss", "CNN"));
+				derpy = reader.reader(new typeLink("http://rss.cnn.com/rss/cnn_topstories.rss", "CNN"));
 			}
-
+			
 		}).start();
-
+		
 		try {
 			new Thread().sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		for (int i = 0; i < derpy.size(); i++) {
 			TextView tv1 = new TextView(this);
 			Button b1 = new Button(this);
