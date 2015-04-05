@@ -17,9 +17,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.support.v4.widget.DrawerLayout;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +40,7 @@ public class NewsFeed extends Activity implements
 	private Links link = new Links();
 	private RSSReader reader = new RSSReader();
 	private ArrayList<Article> derpy;
+	private String url;
 	
 	/**
 	 * Used to store the last screen title. For use in
@@ -68,7 +71,7 @@ public class NewsFeed extends Activity implements
 			public synchronized void run() {
 				derpy = reader.reader(new typeLink("http://rss.cnn.com/rss/cnn_topstories.rss", "CNN"));
 			}
-			
+			  
 		}).start();
 		
 		try {
@@ -79,17 +82,24 @@ public class NewsFeed extends Activity implements
 		}
 		
 		for (int i = 0; i < derpy.size(); i++) {
-			TextView tv1 = new TextView(this);
 			Button b1 = new Button(this);
-			b1.setText("Click here for more information");
-			tv1.setTextSize(10);
-			tv1.setGravity(Gravity.CENTER);
-			tv1.setText(derpy.get(i).getTitle());
-			myLinearLayout.addView(tv1);
+			b1.setText(derpy.get(i).getTitle());
+			b1.setTextSize(10);
+			//b1.setPreferredSize();
+			b1.setGravity(Gravity.CENTER);
 			myLinearLayout.addView(b1);
+		    url = derpy.get(i).getLink();
+			b1.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					WebView browser = (WebView) findViewById(R.id.webview);
+					browser.loadUrl(url);
+				}
+			});
 		}
 
 	}
+	
+	
 
 	/*
 	 * @Override protected void onStart() { System.out.println("Hello");

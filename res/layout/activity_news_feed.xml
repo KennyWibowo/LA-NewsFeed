@@ -6,41 +6,30 @@
     android:layout_height="match_parent"
     tools:context="com.app.la_newsfeed.NewsFeed" >
 
-    <!--
-         As the main content view, the view below consumes the entire
-         space available using match_parent in both dimensions.
-    -->
+    <WebView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-        <LinearLayout
-        	android:id="@+id/layout"
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-            	<Button android:id="@+id/button1"
-            	 android:layout_width="wrap_content"
-            	 android:layout_height="wrap_content"
-            	 android:text="@string/button"
-            	 android:onClick="url"/>
-        </LinearLayout>
+            android:layout_height="match_parent" >
 
-    </FrameLayout>
-
-    <!--
-         android:layout_gravity="start" tells DrawerLayout to treat
-         this as a sliding drawer on the left side for left-to-right
-         languages and on the right side for right-to-left languages.
-         If you're not building against API 17 or higher, use
-         android:layout_gravity="left" instead.
-    -->
-    <!--
-         The drawer is given a fixed width in dp and extends the full height of
-         the container.
-    -->
+            <LinearLayout
+                android:id="@+id/layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
 
     <fragment
         android:id="@+id/navigation_drawer"
