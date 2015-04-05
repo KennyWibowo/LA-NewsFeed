@@ -1,6 +1,5 @@
 package com.util;
 
-
 import java.util.ArrayList;
 
 public class NewsGetter{

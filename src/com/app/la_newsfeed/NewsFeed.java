@@ -1,5 +1,9 @@
 package com.app.la_newsfeed;
 
+import java.util.ArrayList;
+
+import com.util.*;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -21,17 +25,19 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 public class NewsFeed extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 
- 
 	/**
 	 * Fragment managing the behaviors, interactions and presentation of the
 	 * navigation drawer.
 	 */
 	private NavigationDrawerFragment mNavigationDrawerFragment;
-
+	private NewsGetter newsGetter = new NewsGetter();
+	private Links link = new Links();
+	private RSSReader reader = new RSSReader();
+	private ArrayList<Article> derpy;
+	
 	/**
 	 * Used to store the last screen title. For use in
 	 * {@link #restoreActionBar()}.
@@ -40,36 +46,51 @@ public class NewsFeed extends Activity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        
+		link.addLink("http://rss.cnn.com/rss/cnn_topstories.rss", "CNN");
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_news_feed);
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
-		
+
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
-		
+
 		LinearLayout myLinearLayout = (LinearLayout) findViewById(R.id.layout);
-		String[] derp = {"FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH", "SIXTH", "SEVENTH", "EIGHTH"};
+		// Article[] derp = {reader.reader(new
+		// typeLink("http://rss.cnn.com/rss/cnn_topstories.rss", "CNN"))};
+
+		new Thread(new Runnable() {
+
+			public synchronized void run() {
+				derpy = reader.reader(new typeLink("http://rss.cnn.com/rss/cnn_topstories.rss", "CNN"));
+			}
+			
+		}).start();
 		
-		for(int i = 0; i < derp.length; i++){
-			TextView tv1 = new TextView(this);
-			tv1.setTextSize(60);
-			tv1.setGravity(Gravity.CENTER);
-			tv1.setText(derp[i]);
-			myLinearLayout.addView(tv1);
+		try {
+			new Thread().sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+		for (int i = 0; i < derpy.size(); i++) {
+			TextView tv1 = new TextView(this);
+			tv1.setTextSize(10);
+			tv1.setGravity(Gravity.CENTER);
+			tv1.setText(derpy.get(i).getTitle());
+			myLinearLayout.addView(tv1);
+		}
+
 	}
+
 	/*
-	@Override
-	protected void onStart() {
-		System.out.println("Hello");
-	    super.onStart();
-	    // show dialog here
-	}*/
+	 * @Override protected void onStart() { System.out.println("Hello");
+	 * super.onStart(); // show dialog here }
+	 */
 
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
@@ -166,6 +187,5 @@ public class NewsFeed extends Activity implements
 					ARG_SECTION_NUMBER));
 		}
 	}
-		
 
 }
