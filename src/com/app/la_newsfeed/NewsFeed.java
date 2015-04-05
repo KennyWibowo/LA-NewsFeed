@@ -91,8 +91,8 @@ public class NewsFeed extends Activity implements
 		for (int i = 0; i < derpy.size(); i++) {
 
 			int redVal = derpy.get(i).getPriority();
-			int hexVal = (int) (255 * Math.pow(16, 4) + (255 - redVal)
-					* Math.pow(16, 2));
+			int hexVal = 0xFFFF0000;
+			hexVal += + (255 - redVal)*Math.pow(16, 2);
 
 			Button b1 = new Button(this);
 			b1.setText(derpy.get(i).getTitle());
@@ -187,20 +187,20 @@ public class NewsFeed extends Activity implements
 			for (int i = 0; i < derpy.size(); i++) {
 
 				int redVal = derpy.get(i).getPriority();
-				int hexVal = (int) (255 * Math.pow(16, 4) + (255 - redVal)
-						* Math.pow(16, 2));
+				int hexVal = 0xFFFF0000;
+				hexVal += + (255 - redVal)*Math.pow(16, 2);
 
 				Button b1 = new Button(this);
 				b1.setText(derpy.get(i).getTitle());
 				b1.setTextSize(10);
 
-				b1.getBackground().setColorFilter(hexVal,
-						PorterDuff.Mode.MULTIPLY); // 255-redVal
+				b1.getBackground().setColorFilter(hexVal, PorterDuff.Mode.MULTIPLY); // 255-redVal
 				b1.setGravity(Gravity.CENTER);
 				url = derpy.get(i).getLink();
 				b1.setOnClickListener(new DerpyListener(this, url));
 				myLinearLayout.addView(b1);
 			}
+			
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
